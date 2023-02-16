@@ -22,3 +22,17 @@ def products_list(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
 
+@api_view (['GET'])
+def product_detail(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+        serializer = ProductSerializer(product);
+        return Response(serializer.data)   
+         
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND);    
+
+    print(pk)
+    return Response(pk)
+
+
